@@ -117,16 +117,31 @@
 .cost-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 0px 20px;
   width: 50%;
 }
 
 .subBulletContain {
   display: flex;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: space-between;
+  margin: 0px 20px;
   align-items: flex-end;
+}
+
+.frequencySelect {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 20px;
+}
+
+.frequencySelect h4 {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+select {
+  height: 30px;
+  font-size: 15px;
 }
 
 .bullet {
@@ -249,6 +264,6 @@ input[type="radio"]:after {
 }
 
 .reg-price {
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 0;
 }

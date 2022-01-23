@@ -68,56 +68,56 @@ const serum = {
   variantId: "41460880965784",
 };
 
-const allPrices = [
-  [
-    {
-      discount: 30,
-      price: 45.47,
-      text: "1 Set - Save 30%",
-      originalPrice: 64.95,
-      savings: 19.48,
-      sub: true,
-    },
-    {
-      discount: 35,
-      price: 57.74,
-      text: "2 Sets - Save 35%",
-      originalPrice: 88.83,
-      savings: 31.09,
-      sub: true,
-    },
-  ],
-  [
-    {
-      discount: 0,
-      price: 64.95,
-      text: "1 Set",
-      originalPrice: 64.95,
-      savings: 0,
-      sub: false,
-    },
-    {
-      discount: 10,
-      price: 89.95,
-      text: "2 Sets - Save 10%",
-      originalPrice: 88.83,
-      savings: 8.99,
-      sub: false,
-    },
-    {
-      discount: 20,
-      price: 109.45,
-      text: "3 Sets - Save 20%",
-      originalPrice: 109.45,
-      savings: 27.36,
-      sub: false,
-    },
-  ],
-];
+// const allPrices = [
+//   [
+//     {
+//       discount: 30,
+//       price: 45.47,
+//       text: "1 Set - Save 30%",
+//       originalPrice: 64.95,
+//       savings: 19.48,
+//       sub: true,
+//     },
+//     {
+//       discount: 35,
+//       price: 57.74,
+//       text: "2 Sets - Save 35%",
+//       originalPrice: 88.83,
+//       savings: 31.09,
+//       sub: true,
+//     },
+//   ],
+//   [
+//     {
+//       discount: 0,
+//       price: 64.95,
+//       text: "1 Set",
+//       originalPrice: 64.95,
+//       savings: 0,
+//       sub: false,
+//     },
+//     {
+//       discount: 10,
+//       price: 89.95,
+//       text: "2 Sets - Save 10%",
+//       originalPrice: 88.83,
+//       savings: 8.99,
+//       sub: false,
+//     },
+//     {
+//       discount: 20,
+//       price: 109.45,
+//       text: "3 Sets - Save 20%",
+//       originalPrice: 109.45,
+//       savings: 27.36,
+//       sub: false,
+//     },
+//   ],
+// ];
 
 let selectedProduct = subscriptionData[0];
 
-let prices = allPrices[0];
+// let prices = allPrices[0];
 
 // checkoutBtn.addEventListener("click", (e) => {
 //   e.preventDefault();
@@ -171,26 +171,60 @@ function createSubscribeBullets() {
   packContainer.appendChild(container);
 }
 
+//create and append the frequency dropdown menu
+function createFreqDropdown() {
+  const container = document.createElement("div");
+  container.classList.add("frequencySelect");
+
+  const heading = document.createElement("h4");
+  heading.innerText = "Delivery Frequency";
+
+  //create dropdown menu
+  const dropdown = document.createElement("select");
+  dropdown.name = "frequency";
+  dropdown.id = "frequency";
+
+  const options = ["Monthly (recommended)", "2 Months", "3 Months"];
+
+  for (let val of options) {
+    let option = document.createElement("option");
+    option.value = val;
+    option.text = val;
+    dropdown.appendChild(option);
+  }
+
+  container.appendChild(heading);
+  container.appendChild(dropdown);
+  packContainer.appendChild(container);
+}
+
 //remove subscribe bullets when one-time is selected
 function removeSubcribeBullets() {
   const bulletContainer = document.querySelector(".subBulletContain");
   packContainer.removeChild(bulletContainer);
 }
 
-allpackages.forEach((package, i) => {
-  package.addEventListener("click", () => {
-    // console.log(package.childNodes)
-    package.childNodes[1].checked = true;
-    uncheckFreq(i);
-    package.classList.add("selected-package");
-    order.frequency = i;
-    prices = allPrices[i];
-    subscribeChecked = !subscribeChecked;
-    selectedProduct = subscribeChecked ? subscriptionData[0] : oneTimeData[0];
-    refreshProducts(i);
-    defaultPrices();
+function removeFreqDropdown() {
+  const freq = document.querySelector(".frequencySelect");
+  packContainer.removeChild(freq);
+}
+
+function addPackageListeners() {
+  allpackages.forEach((package, i) => {
+    package.addEventListener("click", () => {
+      // console.log(package.childNodes)
+      package.childNodes[1].checked = true;
+      uncheckFreq(i);
+      package.classList.add("selected-package");
+      order.frequency = i;
+      // prices = allPrices[i];
+      subscribeChecked = !subscribeChecked;
+      selectedProduct = subscribeChecked ? subscriptionData[0] : oneTimeData[0];
+      refreshProducts(i);
+      defaultPrices();
+    });
   });
-});
+}
 
 function refreshProducts(ind) {
   if (ind === order.frequency) {
@@ -265,6 +299,7 @@ function uncheckFreq(index) {
   });
 }
 
+//set default prices
 function defaultPrices() {
   addProducts();
   const allpackages = document.querySelectorAll(".product");
@@ -273,12 +308,16 @@ function defaultPrices() {
   firstNode.childNodes[1].checked = true;
   firstNode.classList.add("selected-product");
   // discount.innerText = `${prices[0].discount}% off`;
-  totalPrice = prices[0].price;
+
+  const displayedProducts = subscribeChecked ? subscriptionData : oneTimeData;
+  totalPrice = displayedProducts[0].price;
   updateText();
 
   if (subscribeChecked) {
+    createFreqDropdown();
     createSubscribeBullets();
   } else {
+    removeFreqDropdown();
     removeSubcribeBullets();
   }
   // total.innerText = totalPrice
@@ -308,8 +347,6 @@ addonBtn.addEventListener("click", (e) => {
   }
 });
 
-// need to update
-
 function updateText() {
   // total.innerText = `$${totalPrice}`;
   cartText.innerText = `$${totalPrice}`;
@@ -318,10 +355,13 @@ function updateText() {
   if (subscribeChecked) {
     subSavings.innerText = `(save $${selectedProduct.savings})`;
 
-    regPrice.innerText = `$${selectedProduct.price} `;
+    regPrice.innerText = `$${selectedProduct.price.toFixed(2)} `;
+    regPrice.style.color = "sienna";
     let stPrice = document.createElement("SPAN");
-    stPrice.innerText = `$${selectedProduct.origPrice}`;
-    stPrice.style = "text-decoration:line-through";
+    stPrice.innerText = `$${selectedProduct.origPrice.toFixed(2)}`;
+    stPrice.style.textDecoration = "line-through";
+    stPrice.style.color = "black";
+    stPrice.style.fontWeight = "100";
     regPrice.appendChild(stPrice);
   } else {
     regPrice.innerText = "";
@@ -330,3 +370,4 @@ function updateText() {
 }
 
 defaultPrices();
+addPackageListeners();
