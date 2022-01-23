@@ -1,3 +1,7 @@
+body * {
+  box-sizing: border-box;
+}
+
 .subtitle {
   margin-top: 20px;
   margin-bottom: 15px;
@@ -83,18 +87,24 @@
 
 .addon {
   background-color: white;
-  margin: 3px;
+  margin: 0px 20px;
   margin-top: 20px;
   padding: 25px;
   padding-right: 40px;
   border-radius: 1px;
   box-shadow: 0px 0px 3px grey;
   height: 60px;
-  width: 87%;
+
   display: flex;
   align-items: center;
   cursor: pointer;
   align-self: center;
+}
+
+.one-time {
+  font-weight: 200;
+  color: black;
+  width: 100%;
 }
 
 /* .selected-frequency{
@@ -118,7 +128,7 @@
   display: flex;
   flex-direction: column;
   margin: 0px 20px;
-  width: 50%;
+  /* width: 50%; */
 }
 
 .subBulletContain {

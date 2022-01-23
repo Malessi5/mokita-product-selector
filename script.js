@@ -347,6 +347,16 @@ addonBtn.addEventListener("click", (e) => {
   }
 });
 
+function createPriceStrikethrough(price) {
+  let stPrice = document.createElement("SPAN");
+  stPrice.innerText = `$${price.toFixed(2)}`;
+  stPrice.style.textDecoration = "line-through";
+  stPrice.style.color = "black";
+  stPrice.style.fontWeight = "100";
+  stPrice.classList.add = "st-price";
+  return stPrice;
+}
+
 function updateText() {
   // total.innerText = `$${totalPrice}`;
   cartText.innerText = `$${totalPrice}`;
@@ -357,14 +367,37 @@ function updateText() {
 
     regPrice.innerText = `$${selectedProduct.price.toFixed(2)} `;
     regPrice.style.color = "sienna";
-    let stPrice = document.createElement("SPAN");
-    stPrice.innerText = `$${selectedProduct.origPrice.toFixed(2)}`;
-    stPrice.style.textDecoration = "line-through";
-    stPrice.style.color = "black";
-    stPrice.style.fontWeight = "100";
+    let stPrice = createPriceStrikethrough(selectedProduct.origPrice);
     regPrice.appendChild(stPrice);
   } else {
-    regPrice.innerText = "";
+    const subIdx = selectedProduct.set - 1;
+
+    const oneTime =
+      document.querySelector(".one-time") || document.createElement("div");
+
+    // const oneTime = document.createElement("div");
+    oneTime.classList.add("one-time");
+
+    if (subIdx < 2) {
+      const subPrice = subscriptionData[subIdx].price.toFixed(2);
+      const savings = subscriptionData[subIdx].savings;
+      regPrice.innerText = `$${subPrice} `;
+      regPrice.style.color = "sienna";
+      let stPrice = createPriceStrikethrough(
+        subscriptionData[subIdx].origPrice
+      );
+
+      regPrice.appendChild(stPrice);
+      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! `;
+    } else {
+      regPrice.innerText = "";
+
+      oneTime.innerText =
+        "Save 20% today when purchasing 3 sets of Microsphere Shampoo & Conditioner. In general, Mokita customers begin noticing results after they start using their 3rd set of continued use.";
+    }
+
+    regPrice.appendChild(oneTime);
+    // regPrice.innerText = "";
     oneSavings.innerText = `(save $${selectedProduct.savings})`;
   }
 }
