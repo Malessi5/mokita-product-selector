@@ -8,6 +8,7 @@ const addonText = document.querySelector(".addon-text");
 const addonPrice = 15.98;
 let savings = document.querySelectorAll(".parens");
 let totalPrice;
+
 const addonBtn = document.querySelector(".addon");
 const subSavings = document.querySelector("#sub-savings");
 const oneSavings = document.querySelector("#one-savings");
@@ -246,8 +247,11 @@ function createQuantityOption(product) {
   );
   let setText = document.createElement("p");
   let priceText = document.createElement("p");
-  setText.innerText = `${product.set} Set - Save ${product.savings}`;
-  priceText.innerText = `$${product.price}`;
+  product.set === 1
+    ? (setText.innerText = `${product.set} Set - Save ${product.savings}`)
+    : (setText.innerText = `${product.set} Sets - Save ${product.savings}`);
+
+  priceText.innerText = `$${product.price.toFixed(2)}`;
   prod.appendChild(img);
   prod.appendChild(setText);
   prod.appendChild(priceText);
@@ -325,27 +329,29 @@ function defaultPrices() {
   // subSavings.innerText = `(save $${prices[0].savings})`
 }
 
-addonBtn.addEventListener("click", (e) => {
-  // if(e.target.nodeName = 'DIV'){
+function addOnButtonListener() {
+  addonBtn.addEventListener("click", (e) => {
+    // if(e.target.nodeName = 'DIV'){
 
-  let radio = addonBtn.childNodes[1].childNodes[0];
-  radio.checked = !radio.checked;
+    let radio = addonBtn.childNodes[1].childNodes[0];
+    radio.checked = !radio.checked;
 
-  if (order.addon) {
-    totalPrice -= addonPrice;
-    order.addon = false;
-    // total.innerText = totalPrice;
-    updateText();
-    // cartText.innerText = `$${totalPrice}`
-    // addonText.style.color='darkslategray'
-  } else if (!order.addon) {
-    totalPrice += addonPrice;
-    updateText();
-    // total.innerText = totalPrice
-    // cartText.innerText = `$${totalPrice}`
-    order.addon = true;
-  }
-});
+    if (order.addon) {
+      totalPrice -= serum.price;
+      order.addon = false;
+      // total.innerText = totalPrice;
+      updateText();
+      // cartText.innerText = `$${totalPrice}`
+      // addonText.style.color='darkslategray'
+    } else if (!order.addon) {
+      totalPrice += serum.price;
+      updateText();
+      // total.innerText = totalPrice
+      // cartText.innerText = `$${totalPrice}`
+      order.addon = true;
+    }
+  });
+}
 
 function createPriceStrikethrough(price) {
   let stPrice = document.createElement("SPAN");
@@ -359,7 +365,7 @@ function createPriceStrikethrough(price) {
 
 function updateText() {
   // total.innerText = `$${totalPrice}`;
-  cartText.innerText = `$${totalPrice}`;
+  cartText.innerText = `$${totalPrice.toFixed(2)}`;
   //discount.innerText = `${selectedProduct.discount}% off`;
 
   if (subscribeChecked) {
@@ -404,3 +410,4 @@ function updateText() {
 
 defaultPrices();
 addPackageListeners();
+addOnButtonListener();
