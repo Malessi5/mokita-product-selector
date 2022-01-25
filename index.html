@@ -1,65 +1,72 @@
-
 <html>
-    <head>
-<script src ='script.js' defer></script>
-<link rel = 'stylesheet' href='style.css'>
-    </head>
-    <body>
-
-   
-   <div class = 'main-container'>
-    <div class = 'product-container'>
-       
-      <h2 class='subtitle'>1. Quantity</h2>
-        <div class='quantity'>
-     
-  <!--       <div class = 'product'>
+  <head>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h3>Subscription Terms</h3>
+          <p>I agree this subscription will continue until I cancel. I may cancel at any time by calling + 1 877-8-MOKITA or by emailing <a href='mailto:support@mokita.md'>support@mokita.md</a> I will be charged the amount stated above at the interval stated above to the credit or debit card used to complete this purchase.</a></p>
+          <p>Cancellations are effective at the end of the then-current subscription period. To avoid future charges, cancel 5 business days prior to renewal.</p>
+        </div>
+      </div>
+      <div class="product-container">
+        <h2 class="subtitle">1. Quantity</h2>
+        <div class="quantity">
+          <!--       <div class = 'product'>
       <img src='https://cdn.shopify.com/s/files/1/1847/3469/products/sc.jpg?v=1608115503'/> 
           <p>1 Set - Save 30%</p>
           <p>$45.47</p>
         </div> -->
-  
         </div>
-        
-        
-        <h2 class='subtitle'>2. Package</h2>
 
-        <div class = 'packages-container'>
+        <h2 class="subtitle">2. Package</h2>
+
+        <div class="packages-container">
           <form>
+            <div class="packages-header">
+              <div class="package selected-package">
+                <input type="radio" checked />
+                <h4 class="package-title">Subscribe</h4>
+                <h5 class="parens" id="sub-savings">(save $0.00)</h5>
+              </div>
 
-          <div class = 'packages-header'>   
-            
-          <div class = 'package selected-package'>
-            <input type='radio' checked>
-            <h4 class='package-title'>Subscribe</h4><h5 class='parens' id='sub-savings'>(save $0.00)</h5>
-          </div>
-            
-          <div class = 'package'>
-            <input type='radio'>
-            <h4 class='package-title'>One-time</h4>
-            <h5 class='parens' id='one-savings'>(save $0.00)</h5>
-          </div>
-            
-          </div>
-          </form>
-            <div class='cost-container'>
-              <h4 class='reg-price'></h4>
-              <h2 id='discount'></h2>
-              <!-- <h1 id='total-price'>$50.99</h1> -->
+              <div class="package">
+                <input type="radio" />
+                <h4 class="package-title">One-time</h4>
+                <h5 class="parens" id="one-savings">(save $0.00)</h5>
+              </div>
             </div>
-     
+          </form>
+          <div class="cost-container">
+            <h4 class="reg-price"></h4>
+            <h2 id="discount"></h2>
+            <!-- <h1 id='total-price'>$50.99</h1> -->
+          </div>
         </div>
-      
-        <div class = 'addon'>
-          <div><input type='radio'></div>
-          <div><img src='https://cdn.shopify.com/s/files/1/1847/3469/products/hair-mask_7b025128-3986-41fb-9216-6eb983bcfb9a.jpg?v=1599073171' class='prod-image'></div>
-          <div><p class = "addon-text">Add Microsphere Thickening Serum in this one-time offer for $22.40 (60% Off)</div>
+
+        <div class="addon">
+          <div><input type="radio" /></div>
+          <div>
+            <img
+              src="https://cdn.shopify.com/s/files/1/1847/3469/products/hair-mask_7b025128-3986-41fb-9216-6eb983bcfb9a.jpg?v=1599073171"
+              class="prod-image"
+            />
+          </div>
+          <div>
+            <p class="addon-text">
+              Add Microsphere Thickening Serum in this one-time offer for $22.40
+              (60% Off)
+            </p>
+          </div>
         </div>
-      <button id='checkout'>Add To Cart <span class='total-cart'>$</span></button>
-        </div>
-     
-      
+        <button id="checkout">
+          Add To Cart <span class="total-cart">$</span>
+        </button>
+      </div>
     </div>
-  </div> 
   </body>
 </html>

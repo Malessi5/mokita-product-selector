@@ -69,73 +69,7 @@ const serum = {
   variantId: "41460880965784",
 };
 
-// const allPrices = [
-//   [
-//     {
-//       discount: 30,
-//       price: 45.47,
-//       text: "1 Set - Save 30%",
-//       originalPrice: 64.95,
-//       savings: 19.48,
-//       sub: true,
-//     },
-//     {
-//       discount: 35,
-//       price: 57.74,
-//       text: "2 Sets - Save 35%",
-//       originalPrice: 88.83,
-//       savings: 31.09,
-//       sub: true,
-//     },
-//   ],
-//   [
-//     {
-//       discount: 0,
-//       price: 64.95,
-//       text: "1 Set",
-//       originalPrice: 64.95,
-//       savings: 0,
-//       sub: false,
-//     },
-//     {
-//       discount: 10,
-//       price: 89.95,
-//       text: "2 Sets - Save 10%",
-//       originalPrice: 88.83,
-//       savings: 8.99,
-//       sub: false,
-//     },
-//     {
-//       discount: 20,
-//       price: 109.45,
-//       text: "3 Sets - Save 20%",
-//       originalPrice: 109.45,
-//       savings: 27.36,
-//       sub: false,
-//     },
-//   ],
-// ];
-
 let selectedProduct = subscriptionData[0];
-
-// let prices = allPrices[0];
-
-// checkoutBtn.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   //   if(order.addon){
-//   //     if(order.frequency === 0){
-
-//   //     } else {
-
-//   //     }
-//   //   } else{
-//   //         if(order.frequency === 0){
-
-//   //     } else {
-
-//   //     }
-//   //   }
-// });
 
 //create and append subcribe bullets when subscribe is selected
 function createSubscribeBullets() {
@@ -194,8 +128,16 @@ function createFreqDropdown() {
     dropdown.appendChild(option);
   }
 
+  //terms link
+
+  const link = document.createElement("span");
+  link.innerText = "Subscription Terms";
+  link.classList.add("sub-terms");
+  link.addEventListener("click", showModal);
+
   container.appendChild(heading);
   container.appendChild(dropdown);
+  container.appendChild(link);
   packContainer.appendChild(container);
 }
 
@@ -247,9 +189,12 @@ function createQuantityOption(product) {
   );
   let setText = document.createElement("p");
   let priceText = document.createElement("p");
+
+  const savings = addLineBreak(product.savings);
+
   product.set === 1
-    ? (setText.innerText = `${product.set} Set - Save ${product.savings}`)
-    : (setText.innerText = `${product.set} Sets - Save ${product.savings}`);
+    ? (setText.innerText = `${product.set} Set - Save ${savings}`)
+    : (setText.innerText = `${product.set} Sets - Save ${savings}`);
 
   priceText.innerText = `$${product.price.toFixed(2)}`;
   prod.appendChild(img);
@@ -257,6 +202,16 @@ function createQuantityOption(product) {
   prod.appendChild(priceText);
 
   return prod;
+}
+
+function addLineBreak(str) {
+  let arr = str.split("+");
+  if (arr.length > 1) {
+    let newStr = arr[0] + " \n" + arr[1];
+    return newStr;
+  } else {
+    return str;
+  }
 }
 
 //display selected types of products
@@ -276,7 +231,7 @@ function addProducts() {
       totalPrice = order.addon ? product.price + addonPrice : product.price;
       selectedProduct = product;
       uncheck(i);
-      order.product = i;
+      // order.product = i;
       prod.classList.add("selected-product");
       updateText();
     });
@@ -371,7 +326,9 @@ function updateText() {
   if (subscribeChecked) {
     subSavings.innerText = `(save $${selectedProduct.savings})`;
 
-    regPrice.innerText = `$${selectedProduct.price.toFixed(2)} `;
+    regPrice.innerText = `$${selectedProduct.price.toFixed(
+      2
+    )} + FREE SHIPPING `;
     regPrice.style.color = "sienna";
     let stPrice = createPriceStrikethrough(selectedProduct.origPrice);
     regPrice.appendChild(stPrice);
@@ -394,7 +351,7 @@ function updateText() {
       );
 
       regPrice.appendChild(stPrice);
-      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! `;
+      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
     } else {
       regPrice.innerText = "";
 
@@ -406,6 +363,23 @@ function updateText() {
     // regPrice.innerText = "";
     oneSavings.innerText = `(save $${selectedProduct.savings})`;
   }
+}
+
+function showModal() {
+  const modal = document.querySelector(".modal");
+  modal.style.display = "block";
+
+  const span = document.querySelector(".close");
+
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
 }
 
 defaultPrices();
