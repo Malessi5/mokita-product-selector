@@ -1,6 +1,6 @@
 const allpackages = document.querySelectorAll(".package");
 const quantity = document.querySelector(".quantity");
-let order = { frequency: 0, package: 0, addon: false };
+let order = { frequency: 0, product: 0, addon: false };
 // let total = document.querySelector("#total-price");
 let cartText = document.querySelector(".total-cart");
 let discount = document.querySelector("#discount");
@@ -16,7 +16,7 @@ const regPrice = document.querySelector(".reg-price");
 const packContainer = document.querySelector(".packages-container");
 let subscribeChecked = true;
 
-const checkoutBtn = document.querySelector("#checkout");
+const addBtn = document.querySelector("#add-to-cart");
 
 const subscriptionData = [
   {
@@ -160,6 +160,7 @@ function addPackageListeners() {
       uncheckFreq(i);
       package.classList.add("selected-package");
       order.frequency = i;
+      order.product = 0;
       // prices = allPrices[i];
       subscribeChecked = !subscribeChecked;
       selectedProduct = subscribeChecked ? subscriptionData[0] : oneTimeData[0];
@@ -233,6 +234,7 @@ function addProducts() {
       uncheck(i);
       // order.product = i;
       prod.classList.add("selected-product");
+      order.product = i;
       updateText();
     });
     quantity.appendChild(prod);
@@ -382,6 +384,19 @@ function showModal() {
   };
 }
 
+function addToCartListener() {
+  addBtn.addEventListener("click", () => {
+    if (!subscribeChecked) {
+      let addedProduct = oneTimeData[order.product];
+      if (order.addon) {
+        window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1,${serum.variantId}:1?discount=${addedProduct.discount}`;
+      } else {
+        window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1?discount=${addedProduct.discount}`;
+      }
+    }
+  });
+}
 defaultPrices();
 addPackageListeners();
 addOnButtonListener();
+addToCartListener();
