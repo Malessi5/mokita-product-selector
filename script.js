@@ -393,9 +393,56 @@ function addToCartListener() {
       } else {
         window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1?discount=${addedProduct.discount}`;
       }
+    } else {
+      const frequency = getFrequency();
+      addToCart(subscriptionData[order.product], frequency);
     }
   });
 }
+
+function getFrequency() {
+  const freqOption = document.querySelector("#frequency");
+  const freq = freqOption.value;
+  if (freq[0] === "2" || freq[0] === "3") {
+    return parseInt(freq[0]);
+  } else {
+    return 1;
+  }
+}
+
+async function postData(url, data) {
+  console.log(JSON.stringify(data));
+  const response = await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
+function addToCart(product, freq) {
+  const data = {
+    id: product.variantId,
+    quantity: 1,
+    properties: {
+      shipping_interval_unit_type: "months",
+      shipping_interval_frequency: freq,
+    },
+  };
+
+  const url = "/cart/add.js";
+  postData(url, data).then((response) => {
+    console.log(response);
+  });
+}
+
 defaultPrices();
 addPackageListeners();
 addOnButtonListener();
