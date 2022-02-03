@@ -1,7 +1,6 @@
 const allpackages = document.querySelectorAll(".package");
 const quantity = document.querySelector(".quantity");
 let order = { frequency: 0, product: 0, addon: false };
-// let total = document.querySelector("#total-price");
 let cartText = document.querySelector(".total-cart");
 let discount = document.querySelector("#discount");
 const addonText = document.querySelector(".addon-text");
@@ -155,13 +154,11 @@ function removeFreqDropdown() {
 function addPackageListeners() {
   allpackages.forEach((package, i) => {
     package.addEventListener("click", () => {
-      // console.log(package.childNodes)
       package.childNodes[1].checked = true;
       uncheckFreq(i);
       package.classList.add("selected-package");
       order.frequency = i;
       order.product = 0;
-      // prices = allPrices[i];
       subscribeChecked = !subscribeChecked;
       selectedProduct = subscribeChecked ? subscriptionData[0] : oneTimeData[0];
       refreshProducts(i);
@@ -228,11 +225,9 @@ function addProducts() {
     }
 
     prod.addEventListener("click", () => {
-      // discount.innerText = `${product.discount}% off`;
       totalPrice = order.addon ? product.price + addonPrice : product.price;
       selectedProduct = product;
       uncheck(i);
-      // order.product = i;
       prod.classList.add("selected-product");
       order.product = i;
       updateText();
@@ -245,7 +240,6 @@ function uncheck(index) {
   let allSets = document.querySelectorAll(".product");
   allSets.forEach((set, i) => {
     if (index !== i) {
-      // set.childNodes[0].checked = false;
       set.classList.remove("selected-product");
     }
   });
@@ -265,10 +259,9 @@ function defaultPrices() {
   addProducts();
   const allpackages = document.querySelectorAll(".product");
   const firstNode = allpackages[0];
-  // console.log(allpackages.childNodes[0])
+
   firstNode.childNodes[1].checked = true;
   firstNode.classList.add("selected-product");
-  // discount.innerText = `${prices[0].discount}% off`;
 
   const displayedProducts = subscribeChecked ? subscriptionData : oneTimeData;
   totalPrice = displayedProducts[0].price;
@@ -281,30 +274,20 @@ function defaultPrices() {
     removeFreqDropdown();
     removeSubcribeBullets();
   }
-  // total.innerText = totalPrice
-  // cartText.innerText = `$${totalPrice}`
-  // subSavings.innerText = `(save $${prices[0].savings})`
 }
 
 function addOnButtonListener() {
   addonBtn.addEventListener("click", (e) => {
-    // if(e.target.nodeName = 'DIV'){
-
     let radio = addonBtn.childNodes[1].childNodes[0];
     radio.checked = !radio.checked;
 
     if (order.addon) {
       totalPrice -= serum.price;
       order.addon = false;
-      // total.innerText = totalPrice;
       updateText();
-      // cartText.innerText = `$${totalPrice}`
-      // addonText.style.color='darkslategray'
     } else if (!order.addon) {
       totalPrice += serum.price;
       updateText();
-      // total.innerText = totalPrice
-      // cartText.innerText = `$${totalPrice}`
       order.addon = true;
     }
   });
@@ -321,9 +304,7 @@ function createPriceStrikethrough(price) {
 }
 
 function updateText() {
-  // total.innerText = `$${totalPrice}`;
   cartText.innerText = `$${totalPrice.toFixed(2)}`;
-  //discount.innerText = `${selectedProduct.discount}% off`;
 
   if (subscribeChecked) {
     subSavings.innerText = `(save $${selectedProduct.savings})`;
@@ -340,7 +321,6 @@ function updateText() {
     const oneTime =
       document.querySelector(".one-time") || document.createElement("div");
 
-    // const oneTime = document.createElement("div");
     oneTime.classList.add("one-time");
 
     if (subIdx < 2) {
@@ -362,7 +342,6 @@ function updateText() {
     }
 
     regPrice.appendChild(oneTime);
-    // regPrice.innerText = "";
     oneSavings.innerText = `(save $${selectedProduct.savings})`;
   }
 }
@@ -395,7 +374,7 @@ function addToCartListener() {
       }
     } else {
       const frequency = getFrequency();
-      addToCart(subscriptionData[order.product], frequency);
+      addItemToCart(subscriptionData[order.product], frequency);
     }
   });
 }
@@ -410,40 +389,30 @@ function getFrequency() {
   }
 }
 
-async function postData(url, data) {
-  console.log(JSON.stringify(data));
-  const response = await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(data),
-  });
-  return response.json();
-}
-
-function addToCart(product, freq) {
-  const data = {
+function addItemToCart(product, frequency) {
+  data = {
     id: product.variantId,
     quantity: 1,
     properties: {
+      shipping_interval_frequency: frequency,
       shipping_interval_unit_type: "months",
-      shipping_interval_frequency: freq,
     },
   };
 
-  const url = "/cart/add.js";
-  postData(url, data).then((response) => {
-    console.log(response);
+  jQuery.ajax({
+    type: "POST",
+    url: "/cart/add.js",
+    data: data,
+    dataType: "json",
+    success: function () {
+      window.location.href = "/cart";
+    },
   });
 }
 
-defaultPrices();
-addPackageListeners();
-addOnButtonListener();
-addToCartListener();
+(function init() {
+  defaultPrices();
+  addPackageListeners();
+  addOnButtonListener();
+  addToCartListener();
+})();

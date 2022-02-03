@@ -39,7 +39,6 @@ body * {
 .product {
   background-color: white;
   margin-left: 14px;
-  /*   padding-left:5px; */
   border-radius: 1px;
   width: 30%;
   display: flex;
@@ -106,12 +105,6 @@ body * {
   color: black;
   width: 100%;
 }
-
-/* .selected-frequency{
-    background-color:black;
-    color:white;
-    font-weight:bold;
-  } */
 
 .selected-addon {
   background-color: black;
