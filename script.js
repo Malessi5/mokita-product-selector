@@ -375,6 +375,7 @@ function addToCartListener() {
     } else {
       const frequency = getFrequency();
       addItemToCart(subscriptionData[order.product], frequency);
+      if (order.addon) addItemToCart(serum.variantId, frequency);
     }
   });
 }
