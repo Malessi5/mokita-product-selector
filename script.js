@@ -154,15 +154,19 @@ function removeFreqDropdown() {
 function addPackageListeners() {
   allpackages.forEach((package, i) => {
     package.addEventListener("click", () => {
-      package.childNodes[1].checked = true;
-      uncheckFreq(i);
-      package.classList.add("selected-package");
-      order.frequency = i;
-      order.product = 0;
-      subscribeChecked = !subscribeChecked;
-      selectedProduct = subscribeChecked ? subscriptionData[0] : oneTimeData[0];
-      refreshProducts(i);
-      defaultPrices();
+      if (!package.classList.contains("selected-package")) {
+        package.childNodes[1].checked = true;
+        uncheckFreq(i);
+        package.classList.add("selected-package");
+        order.frequency = i;
+        order.product = 0;
+        subscribeChecked = !subscribeChecked;
+        selectedProduct = subscribeChecked
+          ? subscriptionData[0]
+          : oneTimeData[0];
+        refreshProducts(i);
+        defaultPrices();
+      }
     });
   });
 }
@@ -406,7 +410,7 @@ function addItemToCart(product, frequency) {
     data: data,
     dataType: "json",
     success: function () {
-      window.location.href = "/cart";
+      window.location.href = "/checkout";
     },
   });
 }
