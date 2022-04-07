@@ -9,6 +9,7 @@ let savings = document.querySelectorAll(".parens");
 let totalPrice;
 
 const addonBtn = document.querySelector(".addon");
+const addonRadio = document.querySelector("#addon-radio");
 const subSavings = document.querySelector("#sub-savings");
 const oneSavings = document.querySelector("#one-savings");
 const regPrice = document.querySelector(".reg-price");
@@ -76,27 +77,44 @@ function createSubscribeBullets() {
   container.classList.add("subBulletContain");
 
   const flexible = document.createElement("div");
+  const flexibleHead = document.createElement("div");
+  flexibleHead.classList.add("flex");
 
   const flexHead = document.createElement("h5");
   flexHead.innerText = "Flexible subscription plan";
+
+  const flexImg = document.createElement("img");
+  flexImg.src =
+    "https://cdn.shopify.com/s/files/1/0271/6696/5895/files/subscribe.png?v=1646765834";
 
   const flexTest = document.createElement("h5");
   flexTest.classList.add("bullet-text");
   flexTest.innerText = "Change, pause, or skip your delivery";
 
-  flexible.appendChild(flexHead);
+  flexibleHead.appendChild(flexImg);
+  flexibleHead.appendChild(flexHead);
+  flexible.appendChild(flexibleHead);
   flexible.appendChild(flexTest);
+
+  const cancelHead = document.createElement("div");
+  cancelHead.classList.add("flex");
 
   const easyCancel = document.createElement("div");
 
   const eCHead = document.createElement("h5");
   eCHead.innerText = "Easy Cancel";
 
+  const cancelImg = document.createElement("img");
+  cancelImg.src =
+    "https://cdn.shopify.com/s/files/1/0271/6696/5895/files/cancel.png?v=1646765834";
+
   const eCText = document.createElement("h5");
   eCText.classList.add("bullet-text");
   eCText.innerText = "You can cancel your subscription anytime";
 
-  easyCancel.appendChild(eCHead);
+  cancelHead.appendChild(cancelImg);
+  cancelHead.appendChild(eCHead);
+  easyCancel.appendChild(cancelHead);
   easyCancel.appendChild(eCText);
 
   container.appendChild(flexible);
@@ -282,19 +300,28 @@ function defaultPrices() {
 
 function addOnButtonListener() {
   addonBtn.addEventListener("click", (e) => {
-    let radio = addonBtn.childNodes[1].childNodes[0];
-    radio.checked = !radio.checked;
+    console.log("clicked", e);
 
     if (order.addon) {
-      totalPrice -= serum.price;
-      order.addon = false;
-      updateText();
-    } else if (!order.addon) {
-      totalPrice += serum.price;
-      updateText();
-      order.addon = true;
+      addonRadio.checked = false;
+    } else {
+      addonRadio.checked = true;
     }
+
+    selectAddOn();
   });
+}
+
+function selectAddOn() {
+  if (order.addon) {
+    totalPrice -= serum.price;
+    order.addon = false;
+    updateText();
+  } else if (!order.addon) {
+    totalPrice += serum.price;
+    updateText();
+    order.addon = true;
+  }
 }
 
 function createPriceStrikethrough(price) {
@@ -378,8 +405,10 @@ function addToCartListener() {
       }
     } else {
       const frequency = getFrequency();
+      if (order.addon) {
+        addAddonToCart(serum.variantId, frequency);
+      }
       addItemToCart(subscriptionData[order.product], frequency);
-      if (order.addon) addItemToCart(serum.variantId, frequency);
     }
   });
 }
@@ -412,6 +441,24 @@ function addItemToCart(product, frequency) {
     success: function () {
       window.location.href = "/checkout";
     },
+  });
+}
+
+function addAddonToCart(product, frequency) {
+  data = {
+    id: product.variantId,
+    quantity: 1,
+    properties: {
+      shipping_interval_frequency: frequency,
+      shipping_interval_unit_type: "months",
+    },
+  };
+
+  jQuery.ajax({
+    type: "POST",
+    url: "/cart/add.js",
+    data: data,
+    dataType: "json",
   });
 }
 
