@@ -15,6 +15,9 @@ const oneSavings = document.querySelector("#one-savings");
 const regPrice = document.querySelector(".reg-price");
 const packContainer = document.querySelector(".packages-container");
 let subscribeChecked = true;
+const costContainer = document.querySelector("div.cost-info-container");
+const costContain = document.querySelector("div.cost-container");
+const arrowContain = document.querySelector("div#arrow-container");
 
 const addBtn = document.querySelector("#add-to-cart");
 
@@ -338,6 +341,7 @@ function updateText() {
   cartText.innerText = `$${totalPrice.toFixed(2)}`;
 
   if (subscribeChecked) {
+    removeArrow();
     subSavings.innerText = `(save $${selectedProduct.savings})`;
 
     regPrice.innerText = `$${selectedProduct.price.toFixed(
@@ -347,6 +351,7 @@ function updateText() {
     let stPrice = createPriceStrikethrough(selectedProduct.origPrice);
     regPrice.appendChild(stPrice);
   } else {
+    addArrow();
     const subIdx = selectedProduct.set - 1;
 
     const oneTime =
@@ -392,6 +397,25 @@ function showModal() {
       modal.style.display = "none";
     }
   };
+}
+
+function addArrow() {
+  const isArrow = document.querySelector(".arrow-img");
+
+  if (!isArrow) {
+    const arrow = document.createElement("img");
+    arrow.setAttribute("class", "arrow-img");
+    arrow.src =
+      "https://cdn.shopify.com/s/files/1/0271/6696/5895/files/arrow.png?v=1646765834";
+    arrowContain.appendChild(arrow);
+  }
+}
+
+function removeArrow() {
+  const isArrow = document.querySelector(".arrow-img");
+  if (isArrow) {
+    arrowContain.removeChild(isArrow);
+  }
 }
 
 function addToCartListener() {
