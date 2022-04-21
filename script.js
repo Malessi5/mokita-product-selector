@@ -303,8 +303,6 @@ function defaultPrices() {
 
 function addOnButtonListener() {
   addonBtn.addEventListener("click", (e) => {
-    console.log("clicked", e);
-
     if (order.addon) {
       addonRadio.checked = false;
     } else {
@@ -429,9 +427,6 @@ function addToCartListener() {
       }
     } else {
       const frequency = getFrequency();
-      if (order.addon) {
-        addAddonToCart(serum.variantId, frequency);
-      }
       addItemToCart(subscriptionData[order.product], frequency);
     }
   });
@@ -448,41 +443,36 @@ function getFrequency() {
 }
 
 function addItemToCart(product, frequency) {
-  data = {
-    id: product.variantId,
-    quantity: 1,
-    properties: {
-      shipping_interval_frequency: frequency,
-      shipping_interval_unit_type: "months",
+  items = [
+    {
+      id: product.variantId,
+      quantity: 1,
+      properties: {
+        shipping_interval_frequency: frequency,
+        shipping_interval_unit_type: "months",
+      },
     },
-  };
+  ];
+
+  if (order.addon) {
+    items.push({
+      id: serum.variantId,
+      quantity: 1,
+      properties: {
+        shipping_interval_frequency: frequency,
+        shipping_interval_unit_type: "months",
+      },
+    });
+  }
 
   jQuery.ajax({
     type: "POST",
     url: "/cart/add.js",
-    data: data,
+    data: { items: items },
     dataType: "json",
     success: function () {
       window.location.href = "/checkout";
     },
-  });
-}
-
-function addAddonToCart(product, frequency) {
-  data = {
-    id: product.variantId,
-    quantity: 1,
-    properties: {
-      shipping_interval_frequency: frequency,
-      shipping_interval_unit_type: "months",
-    },
-  };
-
-  jQuery.ajax({
-    type: "POST",
-    url: "/cart/add.js",
-    data: data,
-    dataType: "json",
   });
 }
 
