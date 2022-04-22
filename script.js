@@ -250,7 +250,7 @@ function addProducts() {
     }
 
     prod.addEventListener("click", () => {
-      totalPrice = order.addon ? product.price + addonPrice : product.price;
+      totalPrice = order.addon ? product.price + serum.price : product.price;
       selectedProduct = product;
       uncheck(i);
       prod.classList.add("selected-product");
@@ -290,6 +290,9 @@ function defaultPrices() {
 
   const displayedProducts = subscribeChecked ? subscriptionData : oneTimeData;
   totalPrice = displayedProducts[0].price;
+  if (order.addon) {
+    totalPrice += serum.price;
+  }
   updateText();
 
   if (subscribeChecked) {
