@@ -1,6 +1,6 @@
 const allpackages = document.querySelectorAll(".package");
 const quantity = document.querySelector(".quantity");
-let order = { frequency: 0, product: 0, addon: false };
+let order = {frequency: 0, product: 0, addon: false};
 let cartText = document.querySelector(".total-cart");
 let discount = document.querySelector("#discount");
 const addonText = document.querySelector(".addon-text");
@@ -467,16 +467,21 @@ function addItemToCart(product, frequency) {
       },
     });
   }
+  let data = {items: items};
 
-  jQuery.ajax({
-    type: "POST",
-    url: "/cart/add.js",
-    data: { items: items },
-    dataType: "json",
-    success: function () {
-      window.location.href = "/checkout";
+  fetch("http://localhost:8080/cart/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
     },
-  });
+    body: JSON.stringify(data),
+  })
+    .then((data) => {
+      console.log("success", data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 (function init() {
