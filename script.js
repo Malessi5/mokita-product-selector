@@ -469,7 +469,7 @@ function addItemToCart(product, frequency) {
   }
   let data = {items: items};
 
-  fetch("http://localhost:8080/cart/add", {
+  fetch("https://mokita-cart-backend.herokuapp.com/cart/add", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
