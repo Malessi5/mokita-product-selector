@@ -467,19 +467,22 @@ function addItemToCart(product, frequency) {
       },
     });
   }
-  let data = { items: items };
 
-  jQuery.ajax({
-    type: "POST",
-    url: "https://mokita-cart-backend.herokuapp.com/cart/add",
-    data: JSON.stringify(data),
-    dataType: "json",
-    contentType: "application/json; charset=utf-8",
-    success: function () {
-      console.log("where da onion at");
-      window.location.href = "https://mokita-md.myshopify.com/cart";
-    },
-  });
+  let params = createParamString(items);
+
+  redirectToCart(params);
+}
+
+function createParamString(items) {
+  let addon = items.length > 1;
+  let { id, properties, quantity } = items[0];
+  let paramStr = `?id=${id}&qty=${quantity}&freq=${properties.shipping_interval_frequency}&addon=${addon}`;
+
+  return paramStr;
+}
+
+function redirectToCart(params) {
+  window.location.href = "http://mokita.co/pages/token" + params;
 }
 
 (function init() {
