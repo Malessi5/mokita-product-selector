@@ -1,6 +1,6 @@
 const allpackages = document.querySelectorAll(".package");
 const quantity = document.querySelector(".quantity");
-let order = {frequency: 0, product: 0, addon: false};
+let order = { frequency: 0, product: 0, addon: false };
 let cartText = document.querySelector(".total-cart");
 let discount = document.querySelector("#discount");
 const addonText = document.querySelector(".addon-text");
@@ -467,21 +467,19 @@ function addItemToCart(product, frequency) {
       },
     });
   }
-  let data = {items: items};
+  let data = { items: items };
 
-  fetch("https://mokita-cart-backend.herokuapp.com/cart/add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  jQuery.ajax({
+    type: "POST",
+    url: "https://mokita-cart-backend.herokuapp.com/cart/add",
+    data: JSON.stringify(data),
+    dataType: "json",
+    contentType: "application/json; charset=utf-8",
+    success: function () {
+      console.log("where da onion at");
+      window.location.href = "https://mokita-md.myshopify.com/cart";
     },
-    body: JSON.stringify(data),
-  })
-    .then((data) => {
-      console.log("success", data);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  });
 }
 
 (function init() {
