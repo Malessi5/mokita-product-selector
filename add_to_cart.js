@@ -50,9 +50,29 @@ function reChargeProcessCart() {
   function get_cookie(name) {
     return (document.cookie.match("(^|; )" + name + "=([^;]*)") || 0)[2];
   }
-  do {
+
+  let token;
+  let foundToken = false;
+  let count = 0;
+
+  let cookieCheck = setInterval(() => {
     token = get_cookie("cart");
-  } while (token == undefined);
+    count++;
+    if (token || count >= 5) {
+      foundToken = true;
+      console.log("onion token =", token);
+      clearInterval(cookieCheck);
+    }
+  }, 1000);
+
+  if (!foundToken) {
+    token = getCartToken();
+  }
+
+  return generateCheckoutLink(token);
+}
+
+function generateCheckoutLink(token) {
   try {
     var ga_linker = ga.getAll()[0].get("linkerParam");
   } catch (err) {
@@ -67,15 +87,16 @@ function reChargeProcessCart() {
   return checkout_url;
 }
 
-// function getCartToken(data) {
-//   fetch("/cart.js")
-//     .then(function (res) {
-//       return res.json();
-//     })
-//     .then(function (cart) {
-//       sendPostReq(data, cart.token);
-//     });
-// }
+function getCartToken() {
+  fetch("/cart.js")
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (cart) {
+      console.log("bidge token =", cart.token);
+      return cart.token;
+    });
+}
 
 (function init() {
   const checkoutUrl = reChargeProcessCart();
