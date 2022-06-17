@@ -34,19 +34,31 @@ function createObjectFromParams(urlStr) {
   return products;
 }
 
-function sendPostReq(items) {
+function sendPostReq(items, token) {
   jQuery.ajax({
     type: "POST",
     url: "/cart/add.js",
     data: { items: items },
     dataType: "json",
     success: function () {
-      window.location.href = "/cart";
+      window.location.href =
+        "https://checkout.rechargeapps.com/r/checkout?myshopify_domain=mokita-md.myshopify.com&cart_token=" +
+        token;
     },
   });
 }
 
+function getCartToken(data) {
+  fetch("/cart.js")
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (cart) {
+      sendPostReq(data, cart.token);
+    });
+}
+
 (function init() {
   const data = createObjectFromParams(window.location.href);
-  sendPostReq(data);
+  getCartToken(data);
 })();
