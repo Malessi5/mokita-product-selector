@@ -1,6 +1,8 @@
 function createObjectFromParams(urlStr) {
-  const urlParams = new URLSearchParams(urlStr);
-  let id = urlParams.get("id");
+  const paramStr = urlStr.split("?")[1];
+  let idParam = paramStr.split("&")[0];
+  let id = idParam.split("=")[1];
+  const urlParams = new URLSearchParams(paramStr);
   let qty = parseInt(urlParams.get("qty"));
   let freq = parseInt(urlParams.get("freq"));
   let addon = urlParams.get("addon");
