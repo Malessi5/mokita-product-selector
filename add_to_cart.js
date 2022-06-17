@@ -34,31 +34,54 @@ function createObjectFromParams(urlStr) {
   return products;
 }
 
-function sendPostReq(items, token) {
+function sendPostReq(items, checkoutUrl) {
   jQuery.ajax({
     type: "POST",
     url: "/cart/add.js",
     data: { items: items },
     dataType: "json",
     success: function () {
-      window.location.href =
-        "https://checkout.rechargeapps.com/r/checkout?myshopify_domain=mokita-md.myshopify.com&cart_token=" +
-        token;
+      window.location.href = checkoutUrl;
     },
   });
 }
 
-function getCartToken(data) {
-  fetch("/cart.js")
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (cart) {
-      sendPostReq(data, cart.token);
-    });
+function reChargeProcessCart() {
+  function get_cookie(name) {
+    return (document.cookie.match("(^|; )" + name + "=([^;]*)") || 0)[2];
+  }
+  do {
+    token = get_cookie("cart");
+  } while (token == undefined);
+  try {
+    var ga_linker = ga.getAll()[0].get("linkerParam");
+  } catch (err) {
+    var ga_linker = "";
+  }
+  let checkout_url =
+    "https://checkout.rechargeapps.com/r/checkout?myshopify_domain=mokita-md.myshopify.com&cart_token=" +
+    token +
+    "&" +
+    ga_linker;
+
+  return checkout_url;
 }
 
+// function getCartToken(data) {
+//   fetch("/cart.js")
+//     .then(function (res) {
+//       return res.json();
+//     })
+//     .then(function (cart) {
+//       sendPostReq(data, cart.token);
+//     });
+// }
+
 (function init() {
+  const checkoutUrl = reChargeProcessCart();
   const data = createObjectFromParams(window.location.href);
-  getCartToken(data);
+
+  if (data && checkoutUrl) {
+    sendPostReq(data, checkoutUrl);
+  }
 })();
