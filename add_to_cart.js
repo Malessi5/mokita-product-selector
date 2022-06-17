@@ -67,14 +67,13 @@ function getCartToken() {
     .then(function (res) {
       return res.json();
     })
-    .then(
-      function (cart) {
-        console.log("bidge token =", cart.token);
-        return cart.token;
-      }.catch(function (e) {
-        console.error("No cart token found", e);
-      })
-    );
+    .then(function (cart) {
+      console.log("bidge token =", cart.token);
+      return cart.token;
+    })
+    .catch(function (e) {
+      console.error("No cart token found", e);
+    });
 }
 
 function generateCheckoutLink(token) {
