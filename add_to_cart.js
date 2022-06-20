@@ -91,7 +91,7 @@ function generateCheckoutLink(token) {
   return checkout_url;
 }
 
-function getToken() {
+async function getToken() {
   let cookieToken = getCookieFromToken();
   if (cookieToken) {
     return cookieToken;
@@ -100,17 +100,15 @@ function getToken() {
   }
 }
 
-(function init() {
+(async function init() {
   const data = createObjectFromParams(window.location.href);
-  const token = getToken();
+  const token = await getToken();
 
   if (token) {
     const checkoutUrl = generateCheckoutLink(token);
-
-    if (data && checkoutUrl) {
-      sendPostReq(data, checkoutUrl);
-    }
+    sendPostReq(data, checkoutUrl);
   } else {
     console.log("No cart onion found");
+    console.log("checkouturl", checkoutUrl);
   }
 })();
