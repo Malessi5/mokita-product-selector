@@ -40,8 +40,14 @@ function sendPostReq(items, checkoutUrl) {
     url: "/cart/add.js",
     data: { items: items },
     dataType: "json",
-    success: function () {
-      window.location.href = checkoutUrl;
+    success: function (output, status, xhr) {
+      let newToken = xhr.getResponseHeader("x-shopify-generated-cart-token");
+
+      if (newToken) {
+        window.location.href = generateCheckoutLink(newToken);
+      } else {
+        window.location.href = checkoutUrl;
+      }
     },
   });
 }
@@ -58,17 +64,20 @@ function getCookieFromToken() {
     token = get_cookie("cart");
     count++;
   }
-  console.log("cookie token", token);
   return token;
 }
 
-function getCartToken() {
+async function getCartToken(data) {
   fetch("/cart.js")
     .then(function (res) {
       return res.json();
     })
     .then(function (cart) {
-      console.log("bidge token =", cart.token);
+      document.cookie = `cart=${cart.token}`;
+
+      let cartLink = generateCheckoutLink(cart.token);
+      sendPostReq(data, cartLink);
+
       return cart.token;
     })
     .catch(function (e) {
@@ -91,24 +100,19 @@ function generateCheckoutLink(token) {
   return checkout_url;
 }
 
-async function getToken() {
+async function getToken(data) {
   let cookieToken = getCookieFromToken();
+
   if (cookieToken) {
-    return cookieToken;
+    let cookieLink = generateCheckoutLink(cookieToken);
+    sendPostReq(data, cookieLink);
+    return;
   } else {
-    return getCartToken();
+    getCartToken(data);
   }
 }
 
 (async function init() {
   const data = createObjectFromParams(window.location.href);
-  const token = await getToken();
-
-  if (token) {
-    const checkoutUrl = generateCheckoutLink(token);
-    sendPostReq(data, checkoutUrl);
-  } else {
-    console.log("No cart onion found");
-    console.log("checkouturl", checkoutUrl);
-  }
+  await getToken(data);
 })();
