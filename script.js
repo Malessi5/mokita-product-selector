@@ -40,6 +40,7 @@ const subscriptionData = [
 
 const oneTimeData = [
   {
+    id: "3156326",
     set: 1,
     origPrice: 56,
     price: 50.4,
@@ -48,6 +49,7 @@ const oneTimeData = [
     discount: "GROW10",
   },
   {
+    id: "4156334",
     set: 2,
     origPrice: 96,
     price: 81.6,
@@ -56,6 +58,7 @@ const oneTimeData = [
     discount: "GROW15",
   },
   {
+    id: "4156347",
     set: 3,
     origPrice: 142,
     price: 113.6,
@@ -424,9 +427,11 @@ function addToCartListener() {
     if (!subscribeChecked) {
       let addedProduct = oneTimeData[order.product];
       if (order.addon) {
-        window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1,${serum.variantId}:1?discount=${addedProduct.discount}`;
+        // window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1,${serum.variantId}:1?discount=${addedProduct.discount}`;
+        window.location.href = `https://offers.mokita.co/checkout55083401?pid=${addedProduct.id}&addon=true`;
       } else {
-        window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1?discount=${addedProduct.discount}`;
+        // window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1?discount=${addedProduct.discount}`;
+        window.location.href = `https://offers.mokita.co/checkout55083401?pid=${addedProduct.id}&addon=false`;
       }
     } else {
       const frequency = getFrequency();
@@ -483,6 +488,7 @@ function createParamString(items) {
 
 function redirectToCart(params) {
   window.location.href = "http://mokita.co/pages/token" + params;
+  // window.location.href = "token.html" + params;
 }
 
 (function init() {

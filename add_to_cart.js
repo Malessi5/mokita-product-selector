@@ -67,24 +67,6 @@ function getCookieFromToken() {
   return token;
 }
 
-async function getCartToken(data) {
-  fetch("/cart.js")
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (cart) {
-      document.cookie = `cart=${cart.token}`;
-
-      let cartLink = generateCheckoutLink(cart.token);
-      sendPostReq(data, cartLink);
-
-      return cart.token;
-    })
-    .catch(function (e) {
-      console.error("No cart token found", e);
-    });
-}
-
 function generateCheckoutLink(token) {
   try {
     var ga_linker = ga.getAll()[0].get("linkerParam");
@@ -100,16 +82,10 @@ function generateCheckoutLink(token) {
   return checkout_url;
 }
 
-async function getToken(data) {
+function getToken(data) {
   let cookieToken = getCookieFromToken();
-
-  if (cookieToken) {
-    let cookieLink = generateCheckoutLink(cookieToken);
-    sendPostReq(data, cookieLink);
-    return;
-  } else {
-    getCartToken(data);
-  }
+  let cookieLink = generateCheckoutLink(cookieToken);
+  sendPostReq(data, cookieLink);
 }
 
 (async function init() {
