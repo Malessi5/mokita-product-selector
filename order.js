@@ -13,6 +13,8 @@ function populateSummary(data) {
 
   if (!bump) {
     jQuery("div#serum").remove();
+  } else {
+    jQuery("input#bump-offer").prop("checked", true);
   }
 
   let totals = jQuery(".pull-right.elOrderProductOptinPrice.product-price");
@@ -27,10 +29,14 @@ function getParamObject(urlStr) {
   let id = idArr.split("=")[1];
   let addon = urlParams.get("addon") === "true";
   console.log("pid", id);
+  let bumpPrice = jQuery(
+    ".pull-left.elOrderProductOptinProductName input"
+  )[3].getAttribute("data-product-amount");
+
   let product = {
     desc: "Microsphere Shampoo & Conditioner",
     bump: addon,
-    bumpPrice: 0,
+    bumpPrice: bumpPrice,
     origPrice: priceData[id],
   };
 
@@ -39,11 +45,6 @@ function getParamObject(urlStr) {
       product.price = parseFloat(jQuery(e).attr("data-product-amount"));
       product.set = parseInt(i + 1);
       jQuery(e).prop("checked", true);
-    }
-
-    if (i === 3 && addon) {
-      jQuery(e).prop("checked", true);
-      product.bumpPrice = jQuery(e).attr("data-product-amount");
     }
   });
 
