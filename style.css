@@ -12,6 +12,7 @@ body * {
 .main-container {
   font-family: Futura, sans-serif, Arial, "sans-serif";
   box-sizing: border-box;
+  min-width: 100%;
 }
 
 .product-container {
@@ -28,22 +29,6 @@ body * {
   height: 120px;
 }
 
-.product img {
-  width: 48px;
-}
-
-.product p {
-  margin: 2px;
-}
-
-.subBulletContain img {
-  width: 15px;
-  height: 15px;
-  margin-top: 15px;
-  margin-bottom: 5px;
-  margin-right: 3px;
-}
-
 .product {
   background-color: white;
   margin-left: 14px;
@@ -57,6 +42,32 @@ body * {
   box-shadow: 0px 0px 2px grey;
   border: white solid 1px;
   opacity: 50%;
+}
+
+.product img {
+  width: 48px;
+}
+
+.product p {
+  margin: 2px;
+}
+
+.package {
+  background-color: lightgrey;
+  width: 50%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.subBulletContain img {
+  width: 15px;
+  height: 15px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-right: 3px;
 }
 
 .selected-product {
@@ -86,16 +97,6 @@ body * {
 .arrow-img {
   width: 50px;
   height: 50px;
-}
-
-.package {
-  background-color: lightgrey;
-  width: 50%;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  padding-left: 10px;
 }
 
 .selected-package {
@@ -338,4 +339,61 @@ input[type="radio"]:after {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 350px) and (max-width: 600px) {
+  .product-container {
+    width: initial;
+    height: initial;
+    box-shadow: initial;
+  }
+
+  .quantity {
+    height: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .product {
+    height: initial;
+    text-align: center;
+    width: 200px;
+    height: 120px;
+    margin: 5px;
+  }
+
+  .package .package-title {
+    font-size: 14px;
+  }
+
+  .one-time {
+    font-size: 14px;
+  }
+
+  .package {
+    height: initial;
+  }
+
+  .parens {
+    font-size: 12px;
+  }
+
+  select {
+    height: 40px;
+  }
+
+  .subBulletContain {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .addon {
+    height: 85px;
+    margin: 20px 10px;
+  }
+
+  .addon-text {
+    font-size: 14px;
+  }
 }

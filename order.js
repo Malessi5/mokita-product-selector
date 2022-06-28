@@ -1,4 +1,4 @@
-const priceData = { 4156236: 56, 4156334: 96, 4156347: 168, bump: 56 };
+const priceData = { 4156326: 56, 4156334: 96, 4156347: 168, bump: 56 };
 
 function populateSummary(data) {
   const { desc, set, price, origPrice, bump, bumpPrice } = data;
@@ -7,13 +7,20 @@ function populateSummary(data) {
     "Exclusive Offer - " + set.toString() + " Pack";
   jQuery("p.productprice")[0].textContent = "$" + price.toFixed(2);
   jQuery("p.oldprice span")[0].textContent = "$" + origPrice.toFixed(2);
-  let savings = Math.round(((origPrice - price) / origPrice) * 100);
-  jQuery("p.savings")[0].textContent =
-    "$" + savings.toString() + "% SAVINGS APPLIED";
+  jQuery("span.dot p")[0].textContent = set;
 
-  if (!bump) {
-    jQuery("div#serum").remove();
-  } else {
+  let savings = Math.round(((origPrice - price) / origPrice) * 100).toString();
+  jQuery(".holidaymessage b")[1].textContent =
+    savings + "% Savings Applied + Free Expedited Shipping";
+  jQuery("p.savings")[0].textContent = savings + "% SAVINGS APPLIED";
+
+  const check = document.createElement("img");
+  check.src =
+    "https://offers.mokita.co/hosted/images/ef/68819914f0482eaccc2af260e0b183/greencheck.png";
+
+  jQuery("p.savings")[0].append(check);
+
+  if (bump) {
     jQuery("input#bump-offer").prop("checked", true);
   }
 
@@ -28,6 +35,11 @@ function getParamObject(urlStr) {
   let idArr = urlStr.split("?")[1].split("&")[0];
   let id = idArr.split("=")[1];
   let addon = urlParams.get("addon") === "true";
+
+  if (addon) {
+    jQuery("div#serum").show();
+  }
+
   console.log("pid", id);
   let bumpPrice = jQuery(
     ".pull-left.elOrderProductOptinProductName input"
@@ -56,5 +68,5 @@ function getParamObject(urlStr) {
     let data = getParamObject(window.location.href);
     console.log("data", data);
     populateSummary(data);
-  }, 500);
+  });
 })();
