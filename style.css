@@ -138,9 +138,7 @@ body * {
 
 .cost-container {
   display: flex;
-  /* flex-direction: column; */
   margin: 0px 20px;
-  /* width: 50%; */
 }
 
 .subBulletContain {
@@ -348,6 +346,9 @@ input[type="radio"]:after {
     box-shadow: initial;
   }
 
+  .subtitle {
+    font-size: 20px;
+  }
   .quantity {
     height: 100%;
     align-items: center;
@@ -356,15 +357,22 @@ input[type="radio"]:after {
   }
 
   .product {
-    height: initial;
     text-align: center;
-    width: 200px;
-    height: 120px;
+    width: 165px;
+    height: 110px;
     margin: 5px;
   }
 
   .package .package-title {
     font-size: 14px;
+  }
+
+  .packages-container {
+    min-height: initial;
+  }
+
+  .cost-container {
+    margin: 10px 3px;
   }
 
   .one-time {
@@ -391,6 +399,8 @@ input[type="radio"]:after {
   .addon {
     height: 85px;
     margin: 20px 10px;
+    padding-right: initial;
+    padding: 20px;
   }
 
   .addon-text {
