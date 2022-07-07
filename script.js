@@ -26,14 +26,14 @@ const subscriptionData = [
     set: 1,
     origPrice: 56,
     price: 39.2,
-    savings: "30% + FREE SHIPPING",
+    savings: "30%",
     variantId: "32322387607687",
   },
   {
     set: 2,
     origPrice: 112,
     price: 78.4,
-    savings: "30% + FREE SHIPPING",
+    savings: "30%",
     variantId: "32322387640455",
   },
 ];
@@ -214,17 +214,21 @@ function createQuantityOption(product) {
     "https://cdn.shopify.com/s/files/1/1847/3469/products/sc.jpg?v=1608115503"
   );
   let setText = document.createElement("p");
+  let savingsText = document.createElement("p");
   let priceText = document.createElement("p");
 
   const savings = addLineBreak(product.savings);
 
   product.set === 1
-    ? (setText.innerText = `${product.set} Set - Save ${savings}`)
-    : (setText.innerText = `${product.set} Sets - Save ${savings}`);
+    ? (setText.innerText = `${product.set} Set`)
+    : (setText.innerText = `${product.set} Sets`);
+
+  savingsText.innerText = ` Save ${savings}`;
 
   priceText.innerText = `$${product.price.toFixed(2)}`;
   prod.appendChild(img);
   prod.appendChild(setText);
+  prod.appendChild(savingsText);
   prod.appendChild(priceText);
 
   return prod;
@@ -346,7 +350,7 @@ function updateText() {
 
   if (subscribeChecked) {
     removeArrow();
-    subSavings.innerText = `(save $${selectedProduct.savings})`;
+    subSavings.innerText = `(save ${selectedProduct.savings})`;
 
     regPrice.innerText = `$${selectedProduct.price.toFixed(
       2
@@ -382,7 +386,7 @@ function updateText() {
     }
 
     regPrice.appendChild(oneTime);
-    oneSavings.innerText = `(save $${selectedProduct.savings})`;
+    oneSavings.innerText = `(save ${selectedProduct.savings})`;
   }
 }
 

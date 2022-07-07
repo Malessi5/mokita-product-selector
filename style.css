@@ -72,6 +72,7 @@ body * {
 
 .selected-product {
   box-shadow: 0px 0px 5px #7ec0e1;
+  background-color: rgb(249, 249, 249);
   border: #7ec0e1 solid 1px;
   opacity: 100%;
 }
@@ -87,6 +88,12 @@ body * {
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.vert-text {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .flex {
@@ -105,13 +112,12 @@ body * {
 
 .addon {
   background-color: white;
-  margin: 0px 20px;
+  margin: 0px 15px;
   margin-top: 20px;
   padding: 25px;
   padding-right: 40px;
   border-radius: 1px;
   box-shadow: 0px 0px 3px grey;
-  height: 60px;
 
   display: flex;
   align-items: center;
@@ -233,6 +239,7 @@ label {
 
 .package-title {
   font-weight: lighter;
+  /* margin: 3px 0px; */
   margin-left: 8px;
   margin-right: 8px;
 }
@@ -339,11 +346,18 @@ input[type="radio"]:after {
   cursor: pointer;
 }
 
-@media only screen and (min-width: 350px) and (max-width: 600px) {
+@media only screen and (min-width: 330px) and (max-width: 600px) {
   .product-container {
     width: initial;
     height: initial;
     box-shadow: initial;
+  }
+
+  .vert-text {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .subtitle {
@@ -353,13 +367,12 @@ input[type="radio"]:after {
     height: 100%;
     align-items: center;
     justify-content: flex-start;
-    flex-wrap: wrap;
   }
 
   .product {
     text-align: center;
-    width: 165px;
-    height: 110px;
+    width: 110px;
+    height: 130px;
     margin: 5px;
   }
 
@@ -371,9 +384,14 @@ input[type="radio"]:after {
     min-height: initial;
   }
 
-  .cost-container {
-    margin: 10px 3px;
+  .package-title {
+    font-weight: lighter;
+    margin: 3px 0px;
   }
+
+  /* .cost-container {
+    margin: 10px 3px;
+  } */
 
   .one-time {
     font-size: 14px;
@@ -398,9 +416,10 @@ input[type="radio"]:after {
 
   .addon {
     height: 85px;
-    margin: 20px 10px;
+    width: 96%;
+    margin: 20px 0px;
     padding-right: initial;
-    padding: 20px;
+    padding: 5px;
   }
 
   .addon-text {
