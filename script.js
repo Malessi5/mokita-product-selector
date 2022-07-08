@@ -345,6 +345,8 @@ function createPriceStrikethrough(price) {
   return stPrice;
 }
 
+//where da onion at
+
 function updateText() {
   cartText.innerText = `$${totalPrice.toFixed(2)}`;
 
@@ -355,7 +357,7 @@ function updateText() {
     regPrice.innerText = `$${selectedProduct.price.toFixed(
       2
     )} + FREE SHIPPING `;
-    regPrice.style.color = "sienna";
+    regPrice.style.color = "#e15e3a";
     let stPrice = createPriceStrikethrough(selectedProduct.origPrice);
     regPrice.appendChild(stPrice);
   } else {
@@ -367,24 +369,19 @@ function updateText() {
 
     oneTime.classList.add("one-time");
 
-    if (subIdx < 2) {
-      const subPrice = subscriptionData[subIdx].price.toFixed(2);
-      const savings = subscriptionData[subIdx].savings;
-      regPrice.innerText = `$${subPrice} `;
-      regPrice.style.color = "sienna";
-      let stPrice = createPriceStrikethrough(
-        subscriptionData[subIdx].origPrice
-      );
+    const subPrice = oneTimeData[subIdx].price.toFixed(2);
+    const savings = oneTimeData[subIdx].savings;
+    regPrice.innerText = `$${subPrice} `;
+    regPrice.style.color = "#e15e3a";
+    let stPrice = createPriceStrikethrough(oneTimeData[subIdx].origPrice);
 
-      regPrice.appendChild(stPrice);
-      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
-    } else {
-      regPrice.innerText = "";
+    regPrice.appendChild(stPrice);
+    oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
 
+    if (subIdx === 2) {
       oneTime.innerText =
         "Save 20% today when purchasing 3 sets of Microsphere Shampoo & Conditioner. In general, Mokita customers begin noticing results after they start using their 3rd set of continued use.";
     }
-
     regPrice.appendChild(oneTime);
     oneSavings.innerText = `(save ${selectedProduct.savings})`;
   }
