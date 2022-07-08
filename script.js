@@ -361,27 +361,31 @@ function updateText() {
     let stPrice = createPriceStrikethrough(selectedProduct.origPrice);
     regPrice.appendChild(stPrice);
   } else {
-    addArrow();
     const subIdx = selectedProduct.set - 1;
-
     const oneTime =
       document.querySelector(".one-time") || document.createElement("div");
+    let savings = oneTimeData[subIdx].savings;
+    let subPrice;
 
     oneTime.classList.add("one-time");
 
-    const subPrice = oneTimeData[subIdx].price.toFixed(2);
-    const savings = oneTimeData[subIdx].savings;
+    if (subIdx < 2) {
+      addArrow();
+      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
+      subPrice = subscriptionData[subIdx].price.toFixed(2);
+    } else {
+      removeArrow();
+      oneTime.innerText =
+        "Save 20% today when purchasing 3 sets of Microsphere Shampoo & Conditioner. In general, Mokita customers begin noticing results after they start using their 3rd set of continued use.";
+      subPrice = oneTimeData[subIdx].price.toFixed(2);
+    }
+
     regPrice.innerText = `$${subPrice} `;
     regPrice.style.color = "#e15e3a";
     let stPrice = createPriceStrikethrough(oneTimeData[subIdx].origPrice);
 
     regPrice.appendChild(stPrice);
-    oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
 
-    if (subIdx === 2) {
-      oneTime.innerText =
-        "Save 20% today when purchasing 3 sets of Microsphere Shampoo & Conditioner. In general, Mokita customers begin noticing results after they start using their 3rd set of continued use.";
-    }
     regPrice.appendChild(oneTime);
     oneSavings.innerText = `(save ${selectedProduct.savings})`;
   }
