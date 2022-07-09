@@ -365,22 +365,22 @@ function updateText() {
     const oneTime =
       document.querySelector(".one-time") || document.createElement("div");
     let savings = oneTimeData[subIdx].savings;
-    let subPrice;
+
+    let currPrice = oneTimeData[subIdx].price.toFixed(2);
 
     oneTime.classList.add("one-time");
 
     if (subIdx < 2) {
       addArrow();
-      subPrice = subscriptionData[subIdx].price.toFixed(2);
+      let subPrice = subscriptionData[subIdx].price.toFixed(2);
       oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
     } else {
       removeArrow();
       oneTime.innerText =
         "Save 20% today when purchasing 3 sets of Microsphere Shampoo & Conditioner. In general, Mokita customers begin noticing results after they start using their 3rd set of continued use.";
-      subPrice = oneTimeData[subIdx].price.toFixed(2);
     }
 
-    regPrice.innerText = `$${subPrice} `;
+    regPrice.innerText = `$${currPrice} `;
     regPrice.style.color = "#e15e3a";
     let stPrice = createPriceStrikethrough(oneTimeData[subIdx].origPrice);
 
