@@ -1,79 +1,81 @@
-<html>
-  <head>
-    <script src="script.js" defer></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="script.js" defer></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="main-container">
-      <div class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <h3>Subscription Terms</h3>
-          <p>I agree this subscription will continue until I cancel. I may cancel at any time by calling + 1 877-8-MOKITA or by emailing <a href='mailto:hello@mokita.co'>hello@mokita.co</a> I will be charged the amount stated above at the interval stated above to the credit or debit card used to complete this purchase.</a></p>
-          <p>Cancellations are effective at the end of the then-current subscription period. To avoid future charges, cancel 5 business days prior to renewal.</p>
-        </div>
-      </div>
-      <div class="product-container">
-        <h2 class="subtitle">1. Select Quantity</h2>
-        <div class="quantity">
+<link rel="stylesheet" href="style.css" />
 
-        </div>
+<div class="main-container">
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Subscription Terms</h3>
+      <p>
+        I agree this subscription will continue until I cancel. I may cancel at
+        any time by calling + 1 877-8-MOKITA or by emailing
+        <a href="mailto:hello@mokita.co" style="color: #000000"
+          >hello@mokita.co</a
+        >
+        I will be charged the amount stated above at the interval stated above
+        to the credit or debit card used to complete this purchase.
+      </p>
+      <p>
+        Cancellations are effective at the end of the then-current subscription
+        period. To avoid future charges, cancel 5 business days prior to
+        renewal.
+      </p>
+    </div>
+  </div>
+  <div class="product-container">
+    <h2 class="subtitle">1. Select Quantity</h2>
+    <div class="quantity"></div>
 
-        <h2 class="subtitle">2. Purchase Options</h2>
+    <h2 class="subtitle">2. Purchase Options</h2>
 
-        <div class="packages-container">
-          <form>
-            <div class="packages-header">
-              <div class="package selected-package">
-                <input type="radio" checked />
-                <div class = 'vert-text'>
-                <h4 class="package-title">Subscribe</h4>
-                <h5 class="parens" id="sub-savings">(save 30%)</h5>
-              </div>
-              </div>
-
-              <div class="package">
-                <input type="radio" />
-                <div class = 'vert-text'>
-                <h4 class="package-title">One-time purchase</h4>
-                <h5 class="parens" id="one-savings">(save 10%)</h5>
-                </div>
-              </div>
+    <div class="packages-container">
+      <form>
+        <div class="packages-header">
+          <div class="package selected-package">
+            <input type="radio" checked />
+            <div class="vert-text">
+              <h4 class="package-title">Subscribe</h4>
+              <h5 class="parens" id="sub-savings">(Save 30%)</h5>
             </div>
-          </form>
-          <div class="cost-container">
-            <div id="arrow-container">
+          </div>
 
+          <div class="package">
+            <input type="radio" />
+            <div class="vert-text">
+              <h4 class="package-title">One-time Purchase</h4>
+              <h5 class="parens" id="one-savings">(Save 10%)</h5>
             </div>
-            <div class = 'cost-info-container'>
-              <h4 class="reg-price"></h4>
-            <h2 id="discount"></h2>
-            </div>
-
           </div>
         </div>
-
-        <div class="addon">
-          <div><input type="radio" id ="addon-radio"/></div>
-          <div>
-            <img
-              src="https://cdn.shopify.com/s/files/1/1847/3469/products/hair-mask_7b025128-3986-41fb-9216-6eb983bcfb9a.jpg?v=1599073171"
-              class="prod-image"
-            />
-          </div>
-          <div>
-            <p class="addon-text">
-              Add our best-selling Microsphere Serum to your order for <b>$22.40</b>
-              <b style="color: #e15e3a">(60% Off)</style></b>
-            </p>
-          </div>
+      </form>
+      <div class="cost-container">
+        <div id="arrow-container"></div>
+        <div class="cost-info-container">
+          <h4 class="reg-price"></h4>
+          <h2 id="discount"></h2>
         </div>
-        <button id="add-to-cart">
-          Add To Cart <span class="total-cart">$</span>
-        </button>
       </div>
     </div>
-  </body>
-</html>
+
+    <div class="addon">
+      <div><input type="radio" id="addon-radio" /></div>
+      <div>
+        <img
+          src="https://images.clickfunnels.com/da/8340e5dd0a4d25af254d150a4a6698/serum.jpg"
+          class="prod-image"
+        />
+      </div>
+      <div>
+        <p class="addon-text">
+          Add our best-selling Microsphere Serum to your order for <b>$22.40</b>
+          <b style="color: #e15e3a">(60% Off)</b>
+        </p>
+      </div>
+    </div>
+    <button id="add-to-cart">
+      Add To Cart <span class="total-cart">$</span>
+    </button>
+  </div>
+</div>

@@ -3,7 +3,7 @@ body * {
 }
 
 .subtitle {
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 15px;
   margin-left: 10px;
   font-weight: lighter;
@@ -17,7 +17,7 @@ body * {
 
 .product-container {
   width: 700px;
-  height: 700px;
+  height: 740px;
   padding: 5px;
   box-shadow: 1px 1px 5px black;
   display: flex;
@@ -26,7 +26,7 @@ body * {
 
 .quantity {
   display: flex;
-  height: 120px;
+  height: 130px;
 }
 
 .product {
@@ -46,6 +46,7 @@ body * {
 
 .product img {
   width: 48px;
+  margin-top: 5px;
 }
 
 .product p {
@@ -78,7 +79,7 @@ body * {
 }
 
 .packages-container {
-  min-height: 170px;
+  /*min-height: 170px;*/
   width: 96%;
   box-shadow: 0px 0px 3px grey;
   align-self: center;
@@ -144,7 +145,7 @@ body * {
 
 .cost-container {
   display: flex;
-  margin: 0px 20px;
+  margin: 10px 20px;
 }
 
 .subBulletContain {
@@ -168,13 +169,8 @@ body * {
 select {
   height: 30px;
   font-size: 15px;
-  border-color: #e15e3a;
+  /*border-color: #e15e3a;*/
   border-width: 2px;
-}
-
-select:active,
-select:hover {
-  outline-color: #e15e3a;
 }
 
 .bullet {
@@ -184,7 +180,7 @@ select:hover {
 }
 
 h5 {
-  color: #e15e3a;
+  color: #000000;
   margin-bottom: 5px;
   margin-top: 15px;
   font-size: 14px;
@@ -257,12 +253,12 @@ input[type="radio"]:checked:after {
   position: relative;
   top: 0px;
   left: 0px;
-  background-color: #e15e3a;
+  background-color: rgb(74, 74, 74);
   content: "";
   display: inline-block;
   visibility: visible;
   border: 3px solid white;
-  outline: 1px solid #e15e3a;
+  outline: 1px solid rgb(74, 74, 74);
 }
 
 input[type="radio"]:after {
@@ -277,7 +273,7 @@ input[type="radio"]:after {
   display: inline-block;
   visibility: visible;
   border: 3px solid lightgrey;
-  outline: 1px solid #e15e3a;
+  outline: 1px solid rgb(74, 74, 74);
 }
 
 .addon input[type="radio"]:after {
@@ -286,8 +282,8 @@ input[type="radio"]:after {
 }
 
 .addon input[type="radio"]:checked:after {
-  background-color: #e15e3a;
-  outline: 1px solid #e15e3a;
+  background-color: rgb(74, 74, 74);
+  outline: 1px solid rgb(74, 74, 74);
 }
 
 #discount {
@@ -389,10 +385,6 @@ input[type="radio"]:after {
     margin: 3px 0px;
   }
 
-  /* .cost-container {
-    margin: 10px 3px;
-  } */
-
   .one-time {
     font-size: 14px;
   }
@@ -403,6 +395,7 @@ input[type="radio"]:after {
 
   .parens {
     font-size: 12px;
+    margin-bottom: 10px;
   }
 
   select {
@@ -424,5 +417,11 @@ input[type="radio"]:after {
 
   .addon-text {
     font-size: 14px;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+
+  .prod-image {
+    margin-left: 10px;
   }
 }

@@ -91,7 +91,7 @@ function createSubscribeBullets() {
 
   const flexImg = document.createElement("img");
   flexImg.src =
-    "https://cdn.shopify.com/s/files/1/0271/6696/5895/files/subscribe.png?v=1646765834";
+    "https://images.clickfunnels.com/12/7a653a2f1d4dcb9855c400038278b4/subscribe.png";
 
   const flexTest = document.createElement("h5");
   flexTest.classList.add("bullet-text");
@@ -112,7 +112,7 @@ function createSubscribeBullets() {
 
   const cancelImg = document.createElement("img");
   cancelImg.src =
-    "https://cdn.shopify.com/s/files/1/0271/6696/5895/files/cancel.png?v=1646765834";
+    "https://images.clickfunnels.com/bb/cf638b9dc14c139c362dc4d7f15427/cancel.png";
 
   const eCText = document.createElement("h5");
   eCText.classList.add("bullet-text");
@@ -142,7 +142,7 @@ function createFreqDropdown() {
   dropdown.name = "frequency";
   dropdown.id = "frequency";
 
-  const options = ["Monthly (recommended)", "2 Months", "3 Months"];
+  const options = ["Monthly (Most Common)", "2 Months", "3 Months"];
 
   for (let val of options) {
     let option = document.createElement("option");
@@ -211,7 +211,7 @@ function createQuantityOption(product) {
   const img = document.createElement("img");
   img.setAttribute(
     "src",
-    "https://cdn.shopify.com/s/files/1/1847/3469/products/sc.jpg?v=1608115503"
+    "https://images.clickfunnels.com/b8/4d1a6a49404121b5b45d1e45d423eb/microsphere.png"
   );
   let setText = document.createElement("p");
   let savingsText = document.createElement("p");
@@ -415,7 +415,7 @@ function addArrow() {
     const arrow = document.createElement("img");
     arrow.setAttribute("class", "arrow-img");
     arrow.src =
-      "https://cdn.shopify.com/s/files/1/0271/6696/5895/files/arrow.png?v=1646765834";
+      "https://images.clickfunnels.com/6a/a5bdd5e78747fdbe4cd411e99565aa/arrow.png";
     arrowContain.appendChild(arrow);
   }
 }
@@ -432,10 +432,8 @@ function addToCartListener() {
     if (!subscribeChecked) {
       let addedProduct = oneTimeData[order.product];
       if (order.addon) {
-        // window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1,${serum.variantId}:1?discount=${addedProduct.discount}`;
         window.location.href = `https://offers.mokita.co/checkout55083401?pid=${addedProduct.id}&addon=true`;
       } else {
-        // window.location.href = `https://mokita-md.myshopify.com/cart/${addedProduct.variantId}:1?discount=${addedProduct.discount}`;
         window.location.href = `https://offers.mokita.co/checkout55083401?pid=${addedProduct.id}&addon=false`;
       }
     } else {
@@ -493,7 +491,6 @@ function createParamString(items) {
 
 function redirectToCart(params) {
   window.location.href = "http://mokita.co/pages/token" + params;
-  // window.location.href = "token.html" + params;
 }
 
 (function init() {
