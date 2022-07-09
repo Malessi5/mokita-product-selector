@@ -371,8 +371,8 @@ function updateText() {
 
     if (subIdx < 2) {
       addArrow();
-      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
       subPrice = subscriptionData[subIdx].price.toFixed(2);
+      oneTime.innerText = `You can have the same for only $${subPrice} if you subscribe. That's a savings of ${savings} and you can change or cancel your subscription at any time! 😱`;
     } else {
       removeArrow();
       oneTime.innerText =
