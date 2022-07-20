@@ -21,7 +21,8 @@ function populateSummary(data) {
   jQuery("p.savings")[0].append(check);
 
   if (bump) {
-    jQuery("input#bump-offer").prop("checked", true);
+    // jQuery("input#bump-offer").prop("checked", true);
+    jQuery("input#bump-offer").trigger("click");
   }
 
   let totals = jQuery(".pull-right.elOrderProductOptinPrice.product-price");
@@ -56,7 +57,8 @@ function getParamObject(urlStr) {
     if (jQuery(e).attr("value") === id) {
       product.price = parseFloat(jQuery(e).attr("data-product-amount"));
       product.set = parseInt(i + 1);
-      jQuery(e).prop("checked", true);
+      // jQuery(e).prop("checked", true);
+      jQuery(e).trigger("click");
     }
   });
 
