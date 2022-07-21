@@ -27,8 +27,14 @@ function populateSummary(data) {
 
   let totals = jQuery(".pull-right.elOrderProductOptinPrice.product-price");
   let totalCost = bump ? price + parseFloat(bumpPrice) : price;
-  totals[1].textContent = totalCost.toFixed(2);
-  totals[4].textContent = totalCost.toFixed(2);
+
+  jQuery('.pull-left:contains("Subtotal") + .pull-right').textContent =
+    totalCost.toFixed(2);
+  jQuery('.pull-left:contains("Order Total:") + .pull-right').textContent =
+    totalCost.toFixed(2);
+  // let totalIdx = totals.length - 1;
+  // totals[totalIdx - 3].textContent = totalCost.toFixed(2);
+  // totals[totalIdx].textContent = totalCost.toFixed(2);
 }
 
 function getParamObject(urlStr) {
